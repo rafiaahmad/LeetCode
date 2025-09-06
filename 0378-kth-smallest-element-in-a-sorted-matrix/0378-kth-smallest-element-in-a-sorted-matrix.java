@@ -6,13 +6,7 @@ class Solution {
         
         while(min < max){
             int mid = min + (max-min)/2;
-
-            int count = 0;
-            for(int i = 0; i<n; i++){
-                for(int j=0; j<n; j++){
-                    if(matrix[i][j] <= mid) count++;
-                }
-            }
+            int count = BSCountLess(matrix, mid, n);
 
             if(count >= k){
                 max = mid;
@@ -21,5 +15,22 @@ class Solution {
             }
         }
         return min;
+    }
+
+    int BSCountLess(int[][] matrix, int target, int n){
+        int count = 0;
+        int row = n-1; //Start frm botton left
+        int col = 0;  
+
+        while(row >=0 && col < n){
+            if(matrix[row][col] <= target){
+                //all element in current column upto this row are <=target
+                count += row + 1;
+                col++;
+            } else{
+                row--; // all element in this row will be greater than target
+            }
+        }
+        return count;
     }
 }
