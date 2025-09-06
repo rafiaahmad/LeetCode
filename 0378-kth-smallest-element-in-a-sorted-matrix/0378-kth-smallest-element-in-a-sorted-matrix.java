@@ -1,23 +1,3 @@
-*
-This is LeetCode 378 – Kth Smallest Element in a Sorted Matrix.
-
-Since both rows and columns are sorted, there are two optimal approaches:
-
-\U0001f539 Approach 1: Binary Search on Values
-
-The smallest element is matrix[0][0], largest is matrix[n-1][n-1].
-
-Perform binary search on the value range [min, max].
-
-For a candidate mid, count how many elements are ≤ mid:
-
-Start from bottom-left (or top-right) and traverse efficiently in O(n).
-
-If count < k → need bigger values.
-
-If count >= k → mid might be the answer, search left.
-
-Repeat until low > high. The answer is the smallest mid with count ≥ k.*/
 class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         
