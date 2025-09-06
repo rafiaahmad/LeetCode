@@ -38,3 +38,16 @@
 	<li>Could you solve the problem with a constant memory (i.e., <code>O(1)</code> memory complexity)?</li>
 	<li>Could you solve the problem in <code>O(n)</code> time complexity? The solution may be too advanced for an interview but you may find reading <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf" target="_blank">this paper</a> fun.</li>
 </ul>
+
+
+// Approach to solve the problem
+*
+This is LeetCode 378 – Kth Smallest Element in a Sorted Matrix.
+Since both rows and columns are sorted, the**re are two optimal approaches:
+Approach 1: **Binary Search on Values**
+The smallest element is matrix[0][0], largest is matrix[n-1][n-1].
+Perform **binary search on the value range [min, max]**.
+For a candidate mid, count how many elements are ≤ mid:
+Start from bottom-left (or top-right) and traverse efficiently in O(n).
+If count < k → need bigger values.
+If count >= k → mid might be the answer, search left.
