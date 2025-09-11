@@ -1,6 +1,6 @@
 class Solution {
     public void sortInWave(int arr[]) {
-        // code here
+        // code here if input is sorted
         int n  = arr.length;
         if(n%2 == 0){
             for(int i = 0; i<n; i +=2){
