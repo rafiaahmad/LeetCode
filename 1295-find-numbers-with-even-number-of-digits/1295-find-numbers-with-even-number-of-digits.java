@@ -6,12 +6,7 @@ class Solution {
        int cnt = 0;
        for(int num : nums){
         //logic to find numDigits 
-        int numDigit = 0;
-        while(num > 0){
-            num /= 10;
-            numDigit++;
-        }
-        if(numDigit % 2 == 0) cnt++;
+        if((int)Math.log10(num)%2==1) cnt++;
        }
 
        return cnt;
