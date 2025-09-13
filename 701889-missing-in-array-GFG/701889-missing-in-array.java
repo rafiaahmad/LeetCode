@@ -11,14 +11,14 @@ class Solution {
         
         // Approach2: XOR bit Manipulation
         int n = arr.length+1; //One number is missing
-        int xor1 = 0, xor2 = 0;
+        int xor = 0;
         
-        //XOR for 1..n
-        for(int i=1; i<=n; i++) xor1 ^= i;
+        //XOR all elements from 1..n
+        for(int i=1; i<=n; i++) xor ^= i;
         
-        //XOR for array elements
-        for(int num : arr) xor2 ^= num;
+        //XOR all elements in the array
+        for(int num : arr) xor ^= num;
         
-        return xor1^xor2;
+        return xor; // The result is the missing number
     }
 }
