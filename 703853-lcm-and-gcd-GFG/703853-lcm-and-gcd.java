@@ -2,6 +2,8 @@ class Solution {
     public static int[] lcmAndGcd(int a, int b) {
         // code here
         int ori_a = a, ori_b = b;
+        //Find GCD sing Euclidean Algo
+        // 
         while(b>0){
             int tmp = a%b;
             a = b;
