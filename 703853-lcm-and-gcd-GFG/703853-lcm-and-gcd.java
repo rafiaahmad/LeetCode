@@ -1,6 +1,6 @@
 class Solution {
     public static int[] lcmAndGcd(int a, int b) {
-        // code here
+        // Using recursive approach
         int gcd = findGCD(a,b);
         int lcm = (a*b)/gcd;
         
