@@ -1,6 +1,6 @@
 class Solution {
     public int addDigits(int num) {
-        int sum = (num-1)%9 +1;
-        return sum;
+        if(num == 0) return 0;
+        return ((num-1)%9 + 1);
     }
 }
