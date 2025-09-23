@@ -5,12 +5,14 @@ class Solution {
         while(start < end){
             int mid = start + (end - start)/2;
 
+            // Right half is sorted, min lies in left  half
             if(nums[mid] < nums[end])
-                end = mid; // Search in left half, right half is sorted
+                end = mid; 
+            // Left half is sorted, min must be in right half
             else if(nums[mid] > nums[end])
-                start = mid + 1; // Search in right half,  left half is sorted
-            else 
-                end--; //Shrink
+                start = mid + 1;
+            // else 
+            //     end--; //Shrink
         }
 
         return nums[start];
