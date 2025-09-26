@@ -9,16 +9,16 @@ class Solution {
             col[ind[1]]++;
         }
 
-        int oddCount = 0;
-
-        for(int i = 0; i<m; i++){
-            for(int j = 0; j<n; j++){
-                if ((row[i] + col[j]) % 2 != 0) {
-                    oddCount++;
-                }
-            }
+         // Count odd rows and odd cols
+        int oddRows = 0, oddCols = 0;
+        for (int r : row) {
+            if (r % 2 != 0) oddRows++;
         }
-
-        return oddCount;
+        for (int c : col) {
+            if (c % 2 != 0) oddCols++;
+        }
+        
+        // Formula
+        return oddRows * (n - oddCols) + (m - oddRows) * oddCols;
     }
 }
