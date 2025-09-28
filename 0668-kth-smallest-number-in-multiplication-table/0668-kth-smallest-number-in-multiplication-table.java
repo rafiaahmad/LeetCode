@@ -14,15 +14,8 @@ class Solution {
 
     static int bsCountLess(int mid, int m, int n){
         int count = 0;
-        int row = m, col = 1;
-
-        while(row>=1 && col<=n){
-            if(row*col <= mid){
-                count += row;
-                col++;
-            } else{
-                row--;
-            }
+        for(int i=1; i<=m; i++){
+            count += Math.min(n, mid/i);
         }
         return count;
     }
