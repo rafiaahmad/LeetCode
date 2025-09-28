@@ -2,35 +2,40 @@ class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         
         int n = matrix.length;
-        int min = matrix[0][0], max = matrix[n-1][n-1];
-        
-        while(min < max){
-            int mid = min + (max-min)/2;
-            int count = BSCountLess(matrix, mid, n);
+        int ans = Integer.MIN_VALUE;
+        int low = matrix[0][0];
+        int high = matrix[n-1][n-1];
 
-            if(count >= k){
-                max = mid;
+        while(low<=high){
+            int mid = low + (high-low)/2;
+
+            if(countLessOrEqual(matrix, mid, n, k)){
+                ans = mid;
+                high = mid-1; // search for next smaller mid possible
             } else{
-                min = mid+1;
+                low = mid+1; // search for higher mid which is possible smallest
             }
         }
-        return min;
-    }
 
-    int BSCountLess(int[][] matrix, int target, int n){
+        return ans;
+    }   
+
+    // Function to check whether mid is the possible Kth smallest
+    public boolean countLessOrEqual(int[][] matrix, int target, int n, int k){
         int count = 0;
-        int row = n-1; //Start frm botton left
-        int col = 0;  
+        int row = 0; int col = n-1;
 
-        while(row >=0 && col < n){
-            if(matrix[row][col] <= target){
-                //all element in current column upto this row are <=target
-                count += row + 1;
-                col++;
-            } else{
-                row--; // all element in this row will be greater than target
+        while(row < n && col>=0){
+            if(matrix[row][col] > target){
+                //all ele. in this column are > target
+                col--;
+            } else if(matrix[row][col] <= target){
+                //all element in row are <= target
+                count += col + 1; //count them
+                row++; //proceed to next row
             }
         }
-        return count;
+
+        return (count>=k);
     }
 }
