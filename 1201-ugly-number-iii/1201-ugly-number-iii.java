@@ -1,40 +1,35 @@
 class Solution {
     public int nthUglyNumber(int n, int a, int b, int c) {
-        long lcmAB = lcm(a, b);
-        long lcmBC = lcm(b, c);
-        long lcmAC = lcm(a, c);
-        long lcmABC = lcm(lcmAB, c);
+        long low = Math.min(a, Math.min(b,c)); // lowest possible ugly no.
+        // int high = 2*10^9; //maximum possible ugly no.
+        long high = 2_000_000_000; //maximum possible ugly no.
 
-        long low = 1, high = 2000000000L; // 2*10^9
-        long ans = -1;
+        while(low<high){
+            long mid = low + (high-low)/2;
+
+            if(countUgly(mid, a, b, c, n))
+                high = mid;
+            else
+                low = mid+1;
+        }
+        return (int) low;
+    }
+
+    public boolean countUgly(long target, long a, long b, long c, long n){
         
-        while (low <= high) {
-            long mid = low + (high - low) / 2;
-            long count = mid / a + mid / b + mid / c
-                        - mid / lcmAB - mid / lcmBC - mid / lcmAC
-                        + mid / lcmABC;
-
-            if (count >= n) {
-                ans = mid;
-                high = mid - 1;
-            } else {
-                low = mid + 1;
-            }
-        }
-
-        return (int) ans;
+        long count = (target/a) + (target/b) + (target/c) - (target/lcmNum(a,b))
+                - (target/lcmNum(b,c)) - (target/lcmNum(a,c))
+                + (target/lcmNum(a,lcmNum(b,c)));
+        
+        return (count>=n);
     }
 
-    private long gcd(long x, long y) {
-        while (y != 0) {
-            long tmp = x % y;
-            x = y;
-            y = tmp;
-        }
-        return x;
+    public long lcmNum(long a, long b){
+        return ((a*b)/gcdNum(a,b)); // LCM(a.b) * GCD(a,b) = a*b
     }
 
-    private long lcm(long x, long y) {
-        return x / gcd(x, y) * y;
+    public long gcdNum(long a, long b){
+        if(b == 0) return a; //base case b:0, a is GCD
+        return gcdNum(b, a%b);//recursive call
     }
 }
