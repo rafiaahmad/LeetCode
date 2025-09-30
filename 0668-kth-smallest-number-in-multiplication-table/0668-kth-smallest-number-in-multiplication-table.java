@@ -17,9 +17,10 @@ class Solution {
     public boolean countLessOrEqual(int target, int k, int m, int n){
         int cnt = 0;
         for(int i=1; i<=m; i++){
+            // target/i gives the count of ele. <= target in ith row
             cnt += Math.min(n, target/i);
         }
 
-        return (cnt>=k);
+        return (cnt>=k); // return true if count >= k
     }
 }
