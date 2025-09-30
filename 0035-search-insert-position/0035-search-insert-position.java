@@ -6,11 +6,11 @@ class Solution {
             int mid = start + (end-start)/2;
 
             if(nums[mid] == target)
-                return mid;
+                return mid; // Target found
             if(nums[mid] > target)
-                end = mid -1;
+                end = mid -1; // Keep Searching on left half
             else
-                start = mid+1;
+                start = mid+1; //Keep Searching on Right Half
          }
 
         return start;
