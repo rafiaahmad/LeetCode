@@ -16,28 +16,40 @@ public class Main {
             
             //Step 1: Store frequency
             HashMap<Integer, Integer> freq = new HashMap<>();
-            for(int x : arr)
+            int maxFreq = 0;
+            for(int x : arr){
                 freq.put(x, freq.getOrDefault(x, 0) + 1);
+                maxFreq = Math.max(maxFreq, freq.get(x));
+            }
             
-            //Step 2: Put the array element into list for custom sorting
-            List<Integer> list = new ArrayList<>();
-            for(int x : arr)
-                list.add(x);
+            //Step 2: Create Buckets
+            List<List<Integer>> buckets = new ArrayList<>();
+            for(int i = 0; i<=maxFreq; i++){
+                buckets.add(new ArrayList<>());
+            }
+            
                 
-            //Step 3: Sort the elements by frequency, then by value
-            Collections.sort(list, (a,b) -> {
-               int fa = freq.get(a);
-               int fb = freq.get(b);
-               
-               if(fa != fb)
-                    return fb-fa;
-                else
-                    return a-b;
-            });
+            //Step 3: Put the numbers in corresponding buckets
+            for(int key : freq.keySet()){
+                int f = freq.get(key);
+                buckets.get(f).add(key);
+            }
             
-            //Step 4: Print result
-            for(int x : list){
-                System.out.print(x + " ");
+            //Step 4: Build result array
+            int[] result = new int[arr.length];
+            int index = 0;
+            
+            //Iterate from high frequency to low frequency
+            for(int i = maxFreq; i>=1; i--){
+               for(int num : buckets.get(i)){
+                   for(int j = 0; j<i; j++)
+                        result[index++] = num;
+               }
+            }
+            
+            //Print the array
+            for(int i : result){
+                System.out.print(i + " ");
             }
             System.out.println();
         }
