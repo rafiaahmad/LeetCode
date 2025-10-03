@@ -1,58 +1,58 @@
 class Solution {
     static int inversionCount(int arr[]) {
-        // Function to count the Inversions in the array 
         return countInv(arr, 0, arr.length-1);
     }
     
-    // Recursive merge sort function
-    static int countInv(int[] arr, int l, int r){
-        int res = 0;
+    static int countInv(int[] arr, int left, int right){
+        int InverseCount = 0;
         
-        if(l<r){
-            int mid = l + (r-l)/2;
+        if(left < right){
+            int mid = left + (right-left)/2;
             
-            //count Inversions in left half
-            res += countInv(arr, l, mid);
+            //Count Inversion in left half
+            InverseCount += countInv(arr, left, mid);
             
-            //count Inversions in right half
-            res += countInv(arr, mid+1, r);
+            //Count Inversion in right half
+            InverseCount += countInv(arr, mid+1, right);
             
-            //count the Inversions where 
-            //element of left half is greater than element of right half
-            res += MergeandCount(arr, l, mid, r);
+            //Count Inversion while merging where
+            //ele. of left half > ele. of right half
+            InverseCount += MergeAndCountInv(arr, left, mid, right);
         }
-        return res;
+        
+        return InverseCount;
     }
     
-    // Merge two halves and count inversions
-    static int MergeandCount(int[] arr, int l, int mid, int r){
-        int n1 = mid - l + 1;
-        int n2 = r - mid;
+    static int MergeAndCountInv(int[] arr, int left, int mid, int right){
+        //Step 1: Copy into n/2 arrays into half parts in 2 arrays
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        int cnt = 0;
         
-        //array to store left half and right half elemet to merge
         int[] Left = new int[n1];
         int[] Right = new int[n2];
         
-        //copy the element int left half and right halve arrays
-        for(int i=0; i<n1; i++) Left[i] = arr[i+l];
-        for(int j=0; j<n2; j++) Right[j] = arr[mid+1+j];
-        
-        //compare and sort and shift in original array
-        int i = 0, j = 0, k = l;
-        int res = 0;
+        for(int i = 0; i<n1; i++)
+            Left[i] = arr[left+i];
+            
+        for(int i = 0; i<n2; i++)
+            Right[i] = arr[mid+1+i];
+           
+        //Step 2: Compare, sort and count inversion if comes
+        int i = 0, j = 0, k = left;
         
         while(i<n1 && j<n2){
-            if(Left[i] <= Right[j]){ // No inversion
+            if(Left[i] <= Right[j])
                 arr[k++] = Left[i++];
-            } else{     //Count Inversion
+            else{
                 arr[k++] = Right[j++];
-                res += (n1-i);
+                cnt += n1 - i; //Inversion pair found increase count
             }
         }
         
         while(i<n1) arr[k++] = Left[i++];
         while(j<n2) arr[k++] = Right[j++];
         
-        return res;
+        return cnt;
     }
 }
