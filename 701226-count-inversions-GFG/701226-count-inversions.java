@@ -46,7 +46,7 @@ class Solution {
                 arr[k++] = Left[i++];
             else{
                 arr[k++] = Right[j++];
-                cnt += n1 - i; //Inversion pair found increase count
+                cnt += (n1 - i); //Inversion pair found increase count
             }
         }
         
