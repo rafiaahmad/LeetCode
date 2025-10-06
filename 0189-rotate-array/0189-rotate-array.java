@@ -15,7 +15,6 @@ class Solution {
                 //Step3: Reverse last n=k elements
                 reverse(nums, k, n-1);
                 System.gc();
-                return;
             }
         }
     }
@@ -28,6 +27,5 @@ class Solution {
             left++;
             right--;
         }
-        return;
     }
 }
