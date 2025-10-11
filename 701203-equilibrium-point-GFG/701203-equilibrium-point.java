@@ -7,8 +7,8 @@ class Solution {
             totalSum += x;
             
         //Calculate leftSum, rightSum and compare
-        int leftSum = arr[0];
-        for(int i = 1; i<arr.length; i++){
+        int leftSum = 0;
+        for(int i = 0; i<arr.length; i++){
             int rightSum = totalSum - leftSum -arr[i];
             if(leftSum == rightSum)
                 return i;
