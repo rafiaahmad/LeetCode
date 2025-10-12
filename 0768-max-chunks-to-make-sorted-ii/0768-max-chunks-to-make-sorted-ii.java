@@ -1,20 +1,24 @@
 class Solution {
     public int maxChunksToSorted(int[] arr) {
-        int[] sorted = arr.clone();
-        Arrays.sort(sorted);
+        int n = arr.length;
+        int[] prefixMax = new int[n];
+        int[] suffixMin = new int[n];
         
-        Map<Integer, Integer> count = new HashMap<>();
-        int chunks = 0;
-
-        for (int i = 0; i < arr.length; i++) {
-            count.put(arr[i], count.getOrDefault(arr[i], 0) + 1);
-            if (count.get(arr[i]) == 0) count.remove(arr[i]);
-
-            count.put(sorted[i], count.getOrDefault(sorted[i], 0) - 1);
-            if (count.get(sorted[i]) == 0) count.remove(sorted[i]);
-
-            if (count.isEmpty())
+        prefixMax[0] = arr[0];
+        for (int i = 1; i < n; i++) {
+            prefixMax[i] = Math.max(prefixMax[i - 1], arr[i]);
+        }
+        
+        suffixMin[n - 1] = arr[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            suffixMin[i] = Math.min(suffixMin[i + 1], arr[i]);
+        }
+        
+        int chunks = 1; // at least one chunk
+        for (int i = 0; i < n - 1; i++) {
+            if (prefixMax[i] <= suffixMin[i + 1]) {
                 chunks++;
+            }
         }
         return chunks;
     }
