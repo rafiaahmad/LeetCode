@@ -1,29 +1,19 @@
 class Solution {
     public void rotate(int[] nums, int k) {
-        //Aprroach2: usin reverse In-place method k swap needed
-        int n = nums.length;
-         if (n > 1) {   // ✅ only do work if more than 1 element
-            k = k % n;  // normalize k
+    int n = nums.length;
+    k = k%n;
 
-            if (k > 0) {   // ✅ only rotate if needed
-                //Step1: Reverse the entire Array
-                reverse(nums, 0, n-1);
+    reverse(nums, 0, n-1); // reverse whole array
+    reverse(nums, 0, k-1); // reverse first K elements
+    reverse(nums, k, n-1); // reverse last n-k elements
 
-                //Step2: Reverse first k elements
-                reverse(nums, 0, k-1);
-
-                //Step3: Reverse last n=k elements
-                reverse(nums, k, n-1);
-                System.gc();
-            }
-        }
     }
 
-    static  void reverse(int[] nums, int left, int right){
-        while(left<right){
-            int temp    = nums[left];
-            nums[left]  = nums[right];
-            nums[right] = temp;
+    public void reverse(int[] nums, int left, int right){
+        while(left < right){
+            int tmp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = tmp;
             left++;
             right--;
         }
