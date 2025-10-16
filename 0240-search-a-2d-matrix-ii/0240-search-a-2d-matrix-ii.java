@@ -1,17 +1,14 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        int row = 0,
-            col = matrix[0].length-1;
-        
-        //search space
-        while(row<matrix.length && col >= 0){
+        int row = matrix.length-1, col = 0;
+
+        while(row>=0 && col<matrix[0].length){
             if(matrix[row][col] == target)
                 return true;
-            
             if(matrix[row][col] > target)
-                col--;
+                row--;
             else
-                row++;
+                col++;
         }
 
         return false;
