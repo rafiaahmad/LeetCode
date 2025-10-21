@@ -1,31 +1,34 @@
 class Solution {
     public void rearrange(int arr[]) {
-        // Approach 2 : Sortinng -- Encoding -- Two-pointer
-        // Space: O(1), Time: O(n log n)
-        // Step 1 : Sort the array
-        Arrays.sort(arr);
+        // Approach 1 : Naive Approach: Reversing subarrays repeatedly
+        // Space: O(1), Time: O(n^2) -- 
+        
         int n =  arr.length;
         
-        // Step 2 : Take 2 pointers
-        int minIndex = 0, maxIndex = n-1;
-        int maxElement = arr[n-1]+1;
+        // Step 1 : Sort the array
+        Arrays.sort(arr);
         
-        // Step 3 : Traverse the array, do encoding and store answers
+        
+        // Step 2: Alternate placement of max and min
+        // We'll reverse subarrays to bring max to the correct position
         for(int i = 0; i<n; i++){
-            if(i%2 == 0){
+            // if(i%2 == 0){
                 //Even index --> place maximum
-                arr[i] += (arr[maxIndex] % maxElement) * maxElement;
-                maxIndex--;
-            } else{
-                // Odd Index --> place minimum
-                arr[i] += (arr[minIndex] % maxElement) * maxElement;
-                minIndex++;
-            }
+                reverse(arr, i, n-1);
+            // }
+            // Odd Index --> place minimum by-default
         }
-        
-        // Step 4 : Decode the array to get the original re-arranged array
-        for (int i = 0; i < n; i++){
-            arr[i] = arr[i] / maxElement;
+    }
+    
+    public void reverse(int[] arr, int start, int end){
+        while(start < end){
+            //use two pinter and tmp variable for swapping
+            int tmp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = tmp;
+            
+            start++;
+            end--;
         }
     }
 }
