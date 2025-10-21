@@ -30,6 +30,6 @@ class Solution {
                 return true;
         }
         
-        return false; //could find any pair
+        return false; //couldn't find any pair
     }
 }
