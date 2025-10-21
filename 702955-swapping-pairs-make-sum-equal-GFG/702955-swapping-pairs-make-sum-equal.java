@@ -2,34 +2,34 @@
 
 class Solution {
     boolean findSwapValues(int[] a, int[] b) {
-        // Approach 1 : time - O(n+m), space: O(n)
+        //Approach 2 : Two Pointer Method time: O(n log n), space O(1)
+        //Step 1 : find total Sum
         int sumA = 0, sumB = 0, diff = 0;
         
-        //Step 1 : Calculate total sum of both arrays
-        for(int x : a)
-            sumA += x;
-            
-        for(int x : b)
-            sumB += x;
-            
-        //Step 2 : Calculate difference of both
+        for(int x : a) sumA += x;
+        for(int x : b) sumB += x;
+        
+        // Step 2 : Calculate target
         diff = sumA - sumB;
+        if(diff%2 != 0) return false;
         
-        if(diff%2 != 0) return false; // pair won't be integer
-        diff /= 2;
+        diff /= 2; 
         
-        //Step 3 : Used a HashMap to store elements of array A
-        HashSet<Integer> setA = new HashSet<>();
+        // Step 3 : Sort array in O(n log n) time
+        Arrays.sort(a);
+        Arrays.sort(b);
         
-        for(int x : a)
-            setA.add(x);
-            
-        // Step 4 : Iterate over array B and check if eligible for equal sum
-        for(int x : b){
-            if(setA.contains(x+diff))
+        //Step 4 : Pick two pointer for finding target
+        int i = 0, j = 0;
+        while(i<a.length && j<b.length){
+            if(a[i] - b[j] == diff)
                 return true;
+            else if(a[i] - b[j] < diff)
+                i++; //move in array A
+            else
+                j++; //move in array B
         }
         
-        return false; //couldn't find any pair
+        return false; // target not found
     }
 }
