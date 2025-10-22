@@ -1,25 +1,32 @@
 class Solution {
     public String frequencySort(String s) {
-        // Step 1: Count frequency of each character
+        StringBuilder result = new StringBuilder();
+
+        // Step 1 : Count the frequency using HashMap
         HashMap<Character, Integer> freq = new HashMap<>();
-        for (char c : s.toCharArray()) {
-            freq.put(c, freq.getOrDefault(c, 0) + 1);
+        for(char ch : s.toCharArray())
+            freq.put(ch, freq.getOrDefault(ch, 0) + 1);
+
+        // Step 2 : Create list of entries and sort 
+        List<Map.Entry<Character, Integer>> list = new ArrayList<>(freq.entrySet());
+
+        //Step 3 : Sort the list
+        list.sort((a , b ) -> {
+            if(!b.getValue().equals(a.getValue()))
+                return b.getValue() - a.getValue(); //higher frequency first
+            else
+                return a.getValue() - b.getValue();
+        });
+
+        // Step 4 : Append into string
+        for(int i = 0; i < list.size(); i++){
+            //get the ith key
+            char ch = list.get(i).getKey();
+            for(int j = 0; j<list.get(i).getValue(); j++)
+                result.append(ch); //append the character as its frequency
         }
 
-        // Step 2: Put all characters into a list
-        List<Character> list = new ArrayList<>(freq.keySet());
-
-        // Step 3: Sort characters by frequency (descending)
-        Collections.sort(list, (a, b) -> freq.get(b) - freq.get(a));
-
-        // Step 4: Build result string
-        StringBuilder sb = new StringBuilder();
-        for (char c : list) {
-            int count = freq.get(c);
-            for (int i = 0; i < count; i++) {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
+        //Step 5 : Return the string
+        return result.toString();
     }
 }
