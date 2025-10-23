@@ -1,31 +1,41 @@
 class Solution {
     public String longestPalindrome(String s) {
-        // Approach 1 : Brute-force 
-        // T.C: O(n^3), S.C: O(1)
-        int maxLength = 0;
+        //Approach 2 : Dynamic Programming
         int n = s.length();
-        String result = "";
+        if(n == 0) return "";
+        // if(n==1) return s;
 
-        for(int i = 0; i<n; i++){ // O(n)
-            for(int j = i; j<n; j++){ // O(n)
-                if(isPalindrome(s, i, j)){ // O(n)
-                    int length = j-i+1;
-                    if(length > maxLength){
-                        maxLength = length;
-                        result = s.substring(i, j+1);
+        boolean[][] dp = new boolean[n][n];
+        int start = 0, maxLength = 1;
+
+        //Length 1 Palindromes
+        for(int i = 0; i<n; i++)
+            dp[i][i] = true;
+
+        // Length 2 Palindromes
+        for(int i = 0; i<n-1; i++){
+            if(s.charAt(i) == s.charAt(i+1)){
+                dp[i][i+1] = true;
+                start = i;
+                maxLength = 2;
+            }
+        }
+
+        //Length >= 3 palindromes
+        for(int len = 3; len<=n; len++){ // Substring length
+            for(int i = 0; i+len-1<n; i++){ // Left index
+                int j = i + len - 1; // Right Index
+
+                if(s.charAt(i) == s.charAt(j) && dp[i+1][j-1]){
+                    dp[i][j] = true;
+                    if(len > maxLength){
+                        maxLength = len;
+                        start = i;
                     }
                 }
             }
         }
 
-        return result;
-    }
-
-    public boolean isPalindrome(String s, int l, int r){
-        while(l<r){
-            if(s.charAt(l++) != s.charAt(r--))
-                return false;
-        }
-        return true;
+        return s.substring(start, start+maxLength);
     }
 }
