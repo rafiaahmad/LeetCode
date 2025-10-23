@@ -1,6 +1,7 @@
 class Solution {
     public String longestPalindrome(String s) {
         //Approach 2 : Dynamic Programming
+        // T.C: O(N^2), Space COmplexity: O(N^2)-- array dp
         int n = s.length();
         if(n == 0) return "";
         // if(n==1) return s;
