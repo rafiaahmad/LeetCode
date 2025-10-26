@@ -1,5 +1,6 @@
 class Solution {
     public boolean isPowerOfTwo(int n) {
+        // T.C: O(log n) S.c : O(1)
         // if(n != 1 && n%2 == 1) return;
         if (n<= 0) return false;
         // if(n == 1) return true;
