@@ -5,6 +5,7 @@ class Solution {
         Arrays.sort(nums);
 
         List<List<Integer>> res = new ArrayList<>();
+        // Step 2 : Recursive Function Call
         generate(nums, 0, new ArrayList<>(), res);
         return res;
     }
