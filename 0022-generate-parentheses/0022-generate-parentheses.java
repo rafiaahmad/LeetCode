@@ -1,29 +1,21 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
-        List<String> res = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
+       List<String> res = new ArrayList<>();
 
-        generate(sb, 0, 0, n, res);
-        return res;
+       generate(res, "", 0, 0, n);
+       return res;
     }
 
-    public void generate(StringBuilder sb, int open, int close, int max, List<String> res){
-        if(sb.length() == 2*max){
-            res.add(sb.toString());
+    private void generate(List<String> res, String curr, int open, int close, int max){
+        //Base Case
+        if(curr.length() == 2*max){
+            res.add(curr);
             return;
         }
 
-        if(open < max){
-            sb.append('(');
-            generate(sb, open+1, close, max, res);
-            sb.deleteCharAt(sb.length()-1);
-        }
-
-        if(close < open){
-            sb.append(')');
-            generate(sb, open, close+1, max, res);
-            sb.deleteCharAt(sb.length()-1);
-        }
-        return;
+        if(open < max)
+            generate(res, curr+"(", open+1, close, max);
+        if(close < open)
+            generate(res, curr+")", open, close+1, max);
     }
 }
