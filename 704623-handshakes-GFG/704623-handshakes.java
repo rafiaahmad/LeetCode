@@ -1,18 +1,21 @@
 // User function Template for Java
 
 class Solution {
-    // Iterative DP (Bottom-Up Catalan Table)
+    // Using Catalan no
     static int count(int N) {
-        int pairs = N/2;
-        int[] dp = new int[pairs+1];
+        int n = N/2;
         
-        dp[0] = dp[1] = 1;
+        return catalan(n);
+    }
+    
+    static int catalan(int n){
+        long res = 1;
         
-        for(int i = 2; i<=pairs; i++){
-            for(int left = 0; left<i; left++)
-                dp[i] += dp[left] * dp[i-left-1];
-        }
-        
-        return dp[pairs];
+        // formula: Cn = (2n)! / ((n+1)! * n!)
+        // rewritten in product form to avoid huge factorials
+        for(int i = 0; i<n; i++)
+            res = res * (2L * (2*i+1)) / (i+2);
+            
+        return (int) res;
     }
 }
