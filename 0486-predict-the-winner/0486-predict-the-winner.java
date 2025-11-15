@@ -7,12 +7,13 @@ class Solution {
     }
 
     private int solve(int[] nums, int i, int j, Integer[][] dp){
-        //Base Case
+        //Base Case: When only one number left in the array
         if(i==j) return nums[i];
 
+        //Check if score already calculated when i and j picked
         if(dp[i][j] != null) return dp[i][j];
 
-        //Predict sum of left and right
+        //Predict sum of left and right to calculate score
         int leftGain =  nums[i] - solve(nums, i+1, j, dp);
         int rightGain = nums[j] - solve(nums, i, j-1, dp);
 
