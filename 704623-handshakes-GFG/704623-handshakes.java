@@ -1,26 +1,18 @@
 // User function Template for Java
 
 class Solution {
-    // Top-Down Recursion + Memoization
+    // Iterative DP (Bottom-Up Catalan Table)
     static int count(int N) {
         int pairs = N/2;
-        Integer[] dp = new Integer[pairs+1];
+        int[] dp = new int[pairs+1];
         
-        return solve(pairs, dp);
+        dp[0] = dp[1] = 1;
+        
+        for(int i = 2; i<=pairs; i++){
+            for(int left = 0; left<i; left++)
+                dp[i] += dp[left] * dp[i-left-1];
+        }
+        
+        return dp[pairs];
     }
-    
-    static int solve(int n, Integer[] dp){
-        if(n<=1)  return 1;
-        
-        if(dp[n] != null) return dp[n];
-        
-        int ways = 0;
-        
-        for(int i = 0; i<n; i++)
-            ways += solve(i, dp)*solve(n-i-1, dp);
-            
-        dp[n] = ways;
-        return ways;
-    }
-    
 }
