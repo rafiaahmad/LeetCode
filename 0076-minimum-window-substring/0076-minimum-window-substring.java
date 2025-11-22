@@ -51,13 +51,4 @@ class Solution {
 
         return minLen == Integer.MAX_VALUE ? "" : s.substring(startIndex, startIndex + minLen);
     }
-
-    private boolean isValid(HashMap<Character, Integer> freqS, HashMap<Character, Integer> freqT){
-        for(char ch : freqT.keySet()){
-            if(freqS.get(ch) < freqT.get(ch))
-                return false;
-        }
-
-        return true;
-    }
 }
