@@ -1,54 +1,51 @@
 class Solution {
     public String minWindow(String s, String t) {
-        // Step 1 : Find the length of both strings
-        int m = s.length(), n = t.length();
+        // Step 0 : Early Return
+        if(s.length() < t.length()) return "";
 
-        // Step 2 : Early exit
-        if(m < n) return "";
+        int[] freqT = new int[256];
+        int[] freqS = new int[256];
 
-        HashMap<Character, Integer> freqS = new HashMap<>();
-        HashMap<Character, Integer> freqT = new HashMap<>();
+        // Step 1 : Build frequency array for string T
+        int need = 0;
+        for(char ch : t.toCharArray()){
+            if(freqT[ch] == 0) need++;
+            freqT[ch]++;
+        }
 
-        // Step 3 :Build frequency map for String t
-        for(char ch : t.toCharArray())
-            freqT.put(ch, freqT.getOrDefault(ch, 0) + 1);
-
-        // declare needful variable
+        // Declare necessary variable for finding minimum window substring
+        int have = 0, minIndex = 0, minLen = Integer.MAX_VALUE;
         int left = 0;
-        int have = 0, need = freqT.size();
-        int minLen = Integer.MAX_VALUE;
-        int startIndex = 0;
 
-        // Step 4 : Slide the window over string s further        
-        for(int right = 0; right<m; right++){
-
-            // Step 4.1 : Add the new character
+        // Step 2 : SLIDING WINDOW : Traverse String S using Right pointer
+        for(int right = 0; right < s.length(); right++){
             char ch = s.charAt(right);
-            freqS.put(ch, freqS.getOrDefault(ch, 0)+1);
+            freqS[ch]++;    // Add the frequncy for new character
 
-            // Step 4.2 : Check if freqS matches freqT requirement
-            if(freqT.containsKey(ch) && freqS.get(ch).intValue() == freqT.get(ch).intValue())
-                have++;
+            // Check if freqT need the character or not
+            if(freqT[ch] != 0 && freqS[ch] == freqT[ch])
+                have++;     
 
-            // Step 4.3 : Shrink window until window is valid
+             // When window is valid → shrink
             while(have == need){
-                // Track Best Window
+
+                // Track best window
                 if(right-left+1 < minLen){
                     minLen = right - left + 1;
-                    startIndex = left;
+                    minIndex = left;
                 }
 
-                //Shrink from left
+                // Shrink from left
                 char leftChar = s.charAt(left);
-                freqS.put(leftChar, freqS.get(leftChar)-1);
-
-                if(freqT.containsKey(leftChar) && freqS.get(leftChar) < freqT.get(leftChar) )
+                freqS[leftChar]--;
+                
+                if(freqT[leftChar] != 0 && freqS[leftChar] < freqT[leftChar])
                     have--;
 
-                left++; // Shrink window from left
+                left++;
             }
         }
 
-        return minLen == Integer.MAX_VALUE ? "" : s.substring(startIndex, startIndex + minLen);
+        return minLen == Integer.MAX_VALUE? "" : s.substring(minIndex, minIndex + minLen);
     }
 }
