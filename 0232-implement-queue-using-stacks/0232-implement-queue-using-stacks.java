@@ -1,41 +1,49 @@
 class MyQueue {
-    private Stack<Integer> input;
-    private Stack<Integer> output;
+    Stack<Integer> inStack;
+    Stack<Integer> outStack;
 
-    /** Constructor: initialize your two stacks */
+    /** Constructor: initialize two stacks */
     public MyQueue() {
-        input = new Stack<>();
-        output = new Stack<>();
+        inStack  = new Stack<>();
+        outStack = new Stack<>();
     }
-
+    
     /** Push element x to the back of queue */
     public void push(int x) {
-        input.push(x);
+        inStack.push(x);
     }
-
+    
     /** Removes the element from in front of queue and returns that element */
     public int pop() {
-        moveInputToOutput();
-        return output.pop();
+        shiftStack();
+        return outStack.pop();
     }
-
+    
     /** Get the front element */
     public int peek() {
-        moveInputToOutput();
-        return output.peek();
+        shiftStack();
+        return outStack.peek();
     }
 
-    /** Returns whether the queue is empty */
+    /** Returns whether the queue is empty */ 
     public boolean empty() {
-        return input.isEmpty() && output.isEmpty();
+        return inStack.isEmpty() && outStack.isEmpty();
     }
 
     /** Helper method: transfer elements if output is empty */
-    private void moveInputToOutput() {
-        if (output.isEmpty()) {
-            while (!input.isEmpty()) {
-                output.push(input.pop());
-            }
+    public void shiftStack(){
+        if(outStack.isEmpty()){
+            while(!inStack.isEmpty())
+                outStack.push(inStack.pop());
         }
     }
 }
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */
