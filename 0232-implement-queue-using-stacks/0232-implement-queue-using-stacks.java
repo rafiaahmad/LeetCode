@@ -1,34 +1,34 @@
 class MyQueue {
-    Stack<Integer> inStack;
-    Stack<Integer> outStack;
+    Deque<Integer> s1; 
+    Deque<Integer> s2; 
 
     public MyQueue() {
-        inStack = new Stack<>();
-        outStack = new Stack<>();
+        s1 = new ArrayDeque<>();
+        s2 = new ArrayDeque<>();
     }
     
     public void push(int x) {
-        inStack.push(x);
+        s1.push(x);
     }
     
     public int pop() {
-        shiftStacks();
-        return outStack.pop();
+        shift();
+        return s2.pop();
     }
     
     public int peek() {
-        shiftStacks();
-        return outStack.peek();
+        shift();
+        return s2.peek();
     }
     
     public boolean empty() {
-        return inStack.isEmpty() && outStack.isEmpty();
+        return ( s1.isEmpty() && s2.isEmpty());
     }
 
-    public void shiftStacks(){
-        if(outStack.isEmpty()){
-            while(!inStack.isEmpty())
-                outStack.push(inStack.pop());
+    public void shift(){
+        if(s2.isEmpty()){
+            while(!s1.isEmpty())
+                s2.push(s1.pop());
         }
     }
 }
