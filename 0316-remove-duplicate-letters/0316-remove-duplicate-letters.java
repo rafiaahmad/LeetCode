@@ -1,52 +1,37 @@
 class Solution {
     public String removeDuplicateLetters(String s) {
-        int n = s.length();
         
-        // 1. Frequency of each character
         int[] freq = new int[26];
-        for (int i = 0; i < n; i++) {
-            freq[s.charAt(i) - 'a']++;
+        boolean[] visited = new boolean[26];
+        // Arrays.fill(visited, -1);
+
+        // Step 1 : Build the freq. array
+        for(char ch : s.toCharArray())
+            freq[ch - 'a']++;
+
+        Deque<Character> st = new ArrayDeque<>();
+
+        // Step 2 : Process the string
+        for(char ch : s.toCharArray()){
+            freq[ch - 'a']--; // decrease the frequency
+
+            if(visited[ch - 'a'])
+                continue; // Skip as character alreasy visited
+
+            // Pop when stack is not empty, the current character is greater than existing
+            // character on top of stack and it has non-zero frequency in the frequency array
+            while(!st.isEmpty() && st.peek() > ch && freq[st.peek() - 'a'] > 0)
+                visited[st.pop() - 'a'] = false;
+
+            st.push(ch); // Push the character
+            visited[ch - 'a'] = true; // mark visited
         }
-        
-        // 2. To check if char is already in the result stack
-        boolean[] inStack = new boolean[26];
-        
-        // 3. Use StringBuilder as a stack
-        StringBuilder stack = new StringBuilder();
-        
-        for (int i = 0; i < n; i++) {
-            char c = s.charAt(i);
-            int idx = c - 'a';
-            
-            // Decrease remaining count
-            freq[idx]--;
-            
-            // If already included, skip
-            if (inStack[idx]) {
-                continue;
-            }
-            
-            // While stack is not empty and:
-            // - last char is greater than current char (for lexicographically smaller result)
-            // - and last char will appear again later (freq[...] > 0)
-            while (stack.length() > 0) {
-                char last = stack.charAt(stack.length() - 1);
-                int lastIdx = last - 'a';
-                
-                if (last > c && freq[lastIdx] > 0) {
-                    // We can remove last and add it later
-                    stack.deleteCharAt(stack.length() - 1);
-                    inStack[lastIdx] = false;
-                } else {
-                    break;
-                }
-            }
-            
-            // Add current character to stack/result
-            stack.append(c);
-            inStack[idx] = true;
-        }
-        
-        return stack.toString();
+
+        // Step 3 : Build result
+        StringBuilder res = new StringBuilder();
+        while(!st.isEmpty())
+            res.append(st.pop());
+
+        return res.reverse().toString();
     }
 }
