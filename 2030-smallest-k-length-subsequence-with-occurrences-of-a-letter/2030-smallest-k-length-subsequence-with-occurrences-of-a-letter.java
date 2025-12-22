@@ -17,23 +17,23 @@ class Solution {
 
             // Try to pop for lexicographical order
             while (!stack.isEmpty()
-                    && stack.peekLast() > curr
+                    && stack.peek() > curr
                     && stack.size() - 1 + (n - i) >= k
-                    && (stack.peekLast() != letter || remainingLetter > repetition - usedLetter)) {
+                    && (stack.peek() != letter || remainingLetter > repetition - usedLetter)) {
 
-                char removed = stack.pollLast();
+                char removed = stack.pop();
                 if (removed == letter) usedLetter--;
             }
 
             // Try to push current character
             if (stack.size() < k) {
                 if (curr == letter) {
-                    stack.addLast(curr);
+                    stack.push(curr);
                     usedLetter++;
                 } else {
                     // Ensure space for required letters
                     if (k - stack.size() > repetition - usedLetter) {
-                        stack.addLast(curr);
+                        stack.push(curr);
                     }
                 }
             }
@@ -45,6 +45,6 @@ class Solution {
         StringBuilder result = new StringBuilder();
         for (char c : stack) result.append(c);
 
-        return result.toString();
+        return result.reverse().toString();
     }
 }
