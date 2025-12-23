@@ -1,4 +1,5 @@
 class MinStack {
+    // Time Complexity: O(1), Space Complexity: O(1)
     Deque<Integer> stack;
     Deque<Integer> minStack;
 
