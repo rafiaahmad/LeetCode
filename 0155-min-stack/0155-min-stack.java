@@ -18,7 +18,7 @@ class MinStack {
         // if(!stack.isEmpty())
         int removed = stack.pop();
 
-        if(removed == minStack.peek())
+        if(removed == minStack.peek()      )
         minStack.pop();
     }
     
