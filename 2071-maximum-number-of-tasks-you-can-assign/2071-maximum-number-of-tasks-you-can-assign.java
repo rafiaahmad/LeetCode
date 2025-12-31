@@ -1,6 +1,5 @@
 class Solution {
     public int maxTaskAssign(int[] tasks, int[] workers, int pills, int strength) {
-
         // Step 1: Sort tasks and workers
         Arrays.sort(tasks);
         Arrays.sort(workers);
