@@ -13,21 +13,14 @@
  *     }
  * }
  */
-// DFS -> Recursive Solution
-// Time : O(n), Space: O(h) for recursion stack
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if(root == null) return null;
 
-        // Swap children
-        TreeNode temp = root.left;
-        root.left = root.right;
-        root.right = temp;
-
-        // Invert Trees
-        invertTree(root.left);
-        invertTree(root.right);
-
+        TreeNode right = invertTree(root.right);
+        TreeNode left = invertTree(root.left);
+        root.left = right;
+        root.right = left;
         return root;
     }
 }
