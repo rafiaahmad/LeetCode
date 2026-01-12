@@ -21,6 +21,6 @@ class Solution {
             cnt += Math.min(n, target/i);
         }
 
-        return (cnt>=k); // return true if count >= k
+        return (cnt>=k);
     }
 }
