@@ -28,20 +28,6 @@ class Solution {
                 maxHeap.poll();
         }
 
-        // List<Integer> res = new ArrayList<>();
-        // while (!maxHeap.isEmpty())
-        //     res.add(maxHeap.poll().value);
-
-        // return res;
-
-        // TreeSet keeps ascending order automatically
-        // TreeSet<Integer> sortedResult = new TreeSet<>();
-        // while (!maxHeap.isEmpty()) {
-        //     sortedResult.add(maxHeap.poll().value);
-        // }
-
-        // return new ArrayList<>(sortedResult);
-
         // TreeMap = sorted + allows duplicates
         TreeMap<Integer, Integer> map = new TreeMap<>();
 
