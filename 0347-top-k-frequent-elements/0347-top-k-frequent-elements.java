@@ -19,11 +19,12 @@ class Solution {
         PriorityQueue<Pair> minHeap = new PriorityQueue<>((a, b) -> a.freq - b.freq);
 
         //Iterate over map entry
-        for(Map.Entry<Integer, Integer> entry : freq.entrySet())
+        for(Map.Entry<Integer, Integer> entry : freq.entrySet()){
             minHeap.offer(new Pair(entry.getValue(), entry.getKey()));
 
         if(minHeap.size() > k)
             minHeap.poll();
+        }
 
         // Step 3 : Build Top K Frequent element result
         List<Integer> res = new ArrayList<>();
