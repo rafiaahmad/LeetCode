@@ -12,11 +12,10 @@ class Solution {
 
             if(countGreaterOrEqual(nums, k, mid)){
                 ans = mid; // mid could be the possible answer
-                //search for lesser mid value
-                // high = mid - 1;
+                //Search for higher mid which will satisfy this condn.
                 low = mid + 1;
             } else{
-                // low = mid + 1;
+                // search for lesser mid value
                 high = mid - 1;
             }
         }
