@@ -1,50 +1,26 @@
 class Solution {
-    static class Pair{
-        int value;
-        int diff;
-
-        Pair(int value, int diff){
-            this.value = value;
-            this.diff = diff;
-        }
-    }
-
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
-        // PriorityQueue<Pair> maxHeap = new PriorityQueue<>((a,b) -> b.diff - a.diff);
-        PriorityQueue<Pair> maxHeap = new PriorityQueue<>(
-            (a, b) -> {
-                if (a.diff != b.diff) {
-                    return b.diff - a.diff;     // larger distance first
-                }
-                return b.value - a.value;       // larger value first
-            }
-            );
+        int low = 0;
+        int high = arr.length - k;
 
-        for(int num : arr){
-            int diff = Math.abs(num - x);
-            maxHeap.offer(new Pair(num, diff));
+        // Binary search for the best window start
+        while (low < high) {
+            int mid = low + (high - low) / 2;
 
-            if(maxHeap.size() > k)
-                maxHeap.poll();
-        }
-
-        // TreeMap = sorted + allows duplicates
-        TreeMap<Integer, Integer> map = new TreeMap<>();
-
-        while (!maxHeap.isEmpty()) {
-            int val = maxHeap.poll().value;
-            map.put(val, map.getOrDefault(val, 0) + 1);
-        }
-
-        List<Integer> res = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            int val = entry.getKey();
-            int count = entry.getValue();
-            while (count-- > 0) {
-                res.add(val);
+            // Compare distances at window boundaries
+            if (x - arr[mid] <= arr[mid + k] - x) {
+                high = mid;
+            } else {
+                low = mid + 1;
             }
         }
 
-        return res;
+        // Collect k elements from the final window
+        List<Integer> result = new ArrayList<>();
+        for (int i = low; i < low + k; i++) {
+            result.add(arr[i]);
+        }
+
+        return result;
     }
 }
