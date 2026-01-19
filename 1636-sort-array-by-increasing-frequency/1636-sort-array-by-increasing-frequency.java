@@ -18,8 +18,8 @@ class Solution {
         // Step 2 : Build Heap (High Freq first --> Max Heap)
         PriorityQueue<Pair> maxHeap = new PriorityQueue<>((a,b) -> {
             if(a.freq != b.freq)
-                return a.freq - b.freq;
-            return b.value - a.value;
+                return a.freq - b.freq; // frequency low
+            return b.value - a.value; // value high
         });
 
         // Iterate over Map entry
