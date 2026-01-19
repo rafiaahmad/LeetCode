@@ -11,9 +11,9 @@ class Solution {
         // Step 3 : Sort using comparator
         list.sort((a,b) -> {
             if(a.getValue() != b.getValue())
-                return a.getValue() - b.getValue();
+                return a.getValue() - b.getValue(); // freq ↑
             else
-                return b.getKey() - a.getKey();
+                return b.getKey() - a.getKey();     // value ↓
 
         });
 
