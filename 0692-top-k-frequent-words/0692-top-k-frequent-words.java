@@ -31,7 +31,8 @@ class Solution {
         }
 
         // Step 3 : Build Result of tok K Frequent words
-        List<String> res = new ArrayList<>();
+        // List<String> res = new ArrayList<>();
+        List<String> res = new LinkedList<>();
         while(!minHeap.isEmpty())
             res.addFirst(minHeap.poll().word);
 
