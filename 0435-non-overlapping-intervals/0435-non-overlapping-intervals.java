@@ -1,6 +1,6 @@
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-
+        // Time : O(n log n), Space : O(1)  -- Global Optimal Choice via earliest finish
         if (intervals.length == 0) return 0;
 
         // Step 1: Sort by end time
