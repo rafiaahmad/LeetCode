@@ -1,5 +1,6 @@
 class Solution {
     public int maxProduct(int[] nums) {
+        // Time : O(n), Space: O(1)
         PriorityQueue<Integer> maxHeap =
             new PriorityQueue<>(Collections.reverseOrder());
 
