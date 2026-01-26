@@ -1,40 +1,36 @@
 class Solution {
-    static class Pair{
-            int freq;
-            String word;
-
-            Pair(int freq, String word){
-            this.freq = freq;
-            this.word = word;
-        }
-    }
-
     public List<String> topKFrequent(String[] words, int k) {
         // Step 1: Frequency Counting
         HashMap<String, Integer> freq = new HashMap<>();
         for(String word : words)
             freq.put(word, freq.getOrDefault(word, 0) + 1);
 
-        // Step 2 : Build Heap
-        PriorityQueue<Pair> minHeap = new PriorityQueue<>((a,b) -> {
-            if(a.freq != b.freq)
-                return a.freq - b.freq;         // lower freq is worse
-            return b.word.compareTo(a.word);    // lexicographically larger is worse
-        });
+        // Step 2 : Buckets (Index = Frequency)
+        List<String>[] buckets = new List[words.length + 1];
+        for(int i = 0; i <= words.length; i++)
+            buckets[i] = new ArrayList<>();
 
-        // Iterate over map entry
         for(Map.Entry<String, Integer> entry : freq.entrySet()){
-            minHeap.offer(new Pair(entry.getValue(), entry.getKey()));
-
-            if(minHeap.size() > k)
-                minHeap.poll();
+            String word = entry.getKey();
+            int freqWord = entry.getValue();
+            buckets[freqWord].add(word);
         }
 
-        // Step 3 : Build Result of tok K Frequent words
-        // List<String> res = new ArrayList<>();
+         // 🔥 FIX: sort each bucket lexicographically
+        for (int i = 0; i <= words.length; i++) {
+            Collections.sort(buckets[i]);
+        }
+
+        // Step 3 : Collect Top K
         List<String> res = new LinkedList<>();
-        while(!minHeap.isEmpty())
-            res.addFirst(minHeap.poll().word);
+        int idx = 0;
+        for(int frequency = words.length; frequency >= 0 && idx < k; frequency--){
+            for(String word : buckets[frequency]){
+                idx++;
+                res.add(word);
+                if(idx == k) break;
+            }
+        }
 
         return res;
     }
