@@ -1,22 +1,12 @@
 class Solution {
     boolean twoSum(int arr[], int target) {
+        boolean ans = false;
         
-        //Approach 1 : TC: O(n + n log n), SC: O(1)
-        int n = arr.length;
-        if(n==1) return false;
-        
-        Arrays.sort(arr); // O(n log n)
-        
-        int left = 0, right = n-1;
-        while(left<right){ // O(n)
-            int sum = arr[left] + arr[right];
-            
-            if(sum == target)
-                return true;
-            else if(sum < target)
-                left++;
-            else
-                right--;
+        for(int i = 0; i < arr.length; i++){
+            for(int j = i +1; j < arr.length; j++ ){
+                if(arr[i] + arr[j] == target)
+                    return true;
+            }
         }
         
         return false;
