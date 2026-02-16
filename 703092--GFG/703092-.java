@@ -1,20 +1,14 @@
 class Solution {
     boolean twoSum(int arr[], int target) {
-        int n = arr.length;
-        if(n == 1) return false;
+        HashSet<Integer> set = new HashSet<>();
         
-        Arrays.sort(arr);
-        
-        int left = 0, right = n-1;
-        while(left < right){
-            int sum = arr[left] + arr[right];
+        for(int i = 0; i < arr.length; i++){
+            int complement = target - arr[i];
             
-            if(sum == target)
+            if(set.contains(complement))
                 return true;
-            else if(sum < target)
-                left++;
-            else
-                right--;
+                
+            set.add(arr[i]);
         }
         
         return false;
