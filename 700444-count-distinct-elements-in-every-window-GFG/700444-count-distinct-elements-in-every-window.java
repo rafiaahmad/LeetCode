@@ -1,34 +1,32 @@
 class Solution {
     ArrayList<Integer> countDistinct(int arr[], int k) {
         ArrayList<Integer> res = new ArrayList<>();
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] freq = new int[100001];
         int distinct = 0;
         
         // Step 1 : First Window
         for(int i = 0; i < k; i++){
-            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
-            if(map.get(arr[i]) == 1)
+            if(freq[arr[i]] == 0)
                 distinct++;
-            
+                
+            freq[arr[i]]++;
         }
+        
         res.add(distinct);
         
         // Step 2 : Slide Window
         for(int i = k; i < arr.length; i++){
-            
-            // Remove outgoing element
+            // Remove outgoing elements
             int outgoing = arr[i - k];
-            map.put(outgoing, map.get(outgoing) - 1);
-            if(map.get(outgoing) == 0){
-                map.remove(outgoing);
+            freq[outgoing]--;
+            if(freq[outgoing] == 0)
                 distinct--;
-            }
                 
-            // Add incoming element
+            // Add Incoming element
             int incoming = arr[i];
-            map.put(incoming, map.getOrDefault(incoming, 0) + 1);
-            if(map.get(incoming) == 1)
+            if(freq[incoming] == 0)
                 distinct++;
+            freq[incoming]++;
             
             res.add(distinct);
         }
