@@ -1,37 +1,17 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        //Step 1: Early return case
-        if(s.length() < 1) return s.length();
+        int left = 0, maxLen = 0;
+        HashSet<Character> set = new HashSet<>();
 
-        //Step 2 : Left pointer, maxLen initialization
-        int left = 0, maxLen = 0; //Initial window size 
-
-        //Step 3 : HashMap to store frequency
-        HashMap<Character, Integer> freq = new HashMap<>();
-
-        for(int right = 0; right < s.length(); right++){
-
-            char curr = s.charAt(right);
+        for(int right = 0; right < s.length(); right++) {
             
-            // Step 4 : Checking for duplicate
-            if(!freq.containsKey(curr)){
-                //right-left+1 : Unique Window size
-                maxLen = Math.max(maxLen, (right-left)+1);
-                freq.put(curr, freq.getOrDefault(curr, 0) + 1);
-                continue;
-            }            
-
-            // Step 5 : Shrinking the window
-            while(freq.containsKey(curr)){
-                char removeChar = s.charAt(left);
-                left++; 
-                freq.put(removeChar, freq.get(removeChar) - 1);
-                if(freq.get(removeChar) == 0)
-                    freq.remove(removeChar); //reduce the frequency also
+            while(set.contains(s.charAt(right))) {
+                set.remove(s.charAt(left));
+                left++;
             }
 
-            //Step 5 : Adding the current character after shrink
-            freq.put(curr, freq.getOrDefault(curr, 0) + 1);
+            set.add(s.charAt(right));
+            maxLen = Math.max(maxLen, right - left + 1);
         }
 
         return maxLen;
