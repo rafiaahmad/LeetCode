@@ -7,7 +7,7 @@ class Solution {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] != 0) {
-                    int sum = dfs(grid, i, j);
+                    long sum = dfs(grid, i, j);  // <-- long
                     if (sum % k == 0) {
                         count++;
                     }
@@ -18,15 +18,15 @@ class Solution {
         return count;
     }
 
-    private int dfs(int[][] grid, int i, int j) {
+    private long dfs(int[][] grid, int i, int j) {
         if (i < 0 || j < 0 ||
             i >= grid.length || j >= grid[0].length ||
             grid[i][j] == 0) {
-            return 0;
+            return 0L;
         }
 
-        int val = grid[i][j];
-        grid[i][j] = 0; // mark visited
+        long val = grid[i][j];
+        grid[i][j] = 0;
 
         val += dfs(grid, i + 1, j);
         val += dfs(grid, i - 1, j);
