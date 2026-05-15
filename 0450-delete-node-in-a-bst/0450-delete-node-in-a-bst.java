@@ -14,7 +14,8 @@
  * }
  */
 class Solution {
-    if (root == null) return null;
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) return null;
 
         if (key < root.val) {
 
@@ -41,7 +42,7 @@ class Solution {
         return root;
     }
 
-    private TreeNode findMin(TreeNode node) {
+     private TreeNode findMin(TreeNode node) {
 
         while (node.left != null) {
             node = node.left;
@@ -50,3 +51,7 @@ class Solution {
         return node;
     }
 }
+
+// Synced seamlessly with LeetHub Pro
+// Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+// Get it here: https://chromewebstore.google.com/detail/leethub-v4/bcilpkkbokcopmabingnndookdogmbna
