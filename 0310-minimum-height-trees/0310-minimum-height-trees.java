@@ -1,5 +1,5 @@
 class Solution {
-
+// Time Complexity: O(n), Space complexity : O(n)
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
 
         if (n == 1) {
