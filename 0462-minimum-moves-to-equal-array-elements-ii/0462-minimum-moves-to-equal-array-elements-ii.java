@@ -1,4 +1,5 @@
 class Solution {
+    // T.C: O(n log n), S.C: O(1)
     public int minMoves2(int[] nums) {
         Arrays.sort(nums);
 
