@@ -1,5 +1,6 @@
 class Solution {
     public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        // Complexity: t.c : O(1), s.c: O(1)
         int[] d = new int[] {
             dist(p1, p2),
             dist(p1, p3),
